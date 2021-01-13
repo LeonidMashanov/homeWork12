@@ -75,9 +75,9 @@ class ArrayForPrint {
     }
 }
 
-class standardArrayPrinter extends ArrayPrinter {
+class StandardArrayPrinter extends ArrayPrinter {
 
-    public standardArrayPrinter(ArrayForPrint arrayForPrint) {
+    public StandardArrayPrinter(ArrayForPrint arrayForPrint) {
         super(arrayForPrint);
     }
 
@@ -101,10 +101,10 @@ class DefaultArrayPrinter extends ArrayPrinter {
     }
 }
 
-class prettyArrayPrinter extends ArrayPrinter {
+class PrettyArrayPrinter extends ArrayPrinter {
 
 
-    public prettyArrayPrinter(ArrayForPrint arrayForPrint) {
+    public PrettyArrayPrinter(ArrayForPrint arrayForPrint) {
         super(arrayForPrint);
     }
 
@@ -114,12 +114,53 @@ class prettyArrayPrinter extends ArrayPrinter {
     }
 }
 
-
 public class Main {
-
+    public static int[] newArray() {
+        int size = (int) (Math.random() * 10 + 1);
+        int[] array = new int[size];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = (int) (Math.random() * 100 - 1);
+        }
+        return array;
+    }
 
     public static void main(String[] args) {
 
+        Scanner sc = new Scanner(System.in);
+        int[] array1 = newArray();
+        int[] array2 = newArray();
+        int[] array3 = newArray();
+        ArrayForPrint arrayForPrint = new ArrayForPrint(array1);
+        arrayForPrint = new ArrayForPrint(arrayForPrint.arrays(array1, array2, array3));
 
+        ArrayPrinter arrayPrinter;
+
+        while (true) {
+            System.out.println("choice you printer");
+            System.out.println("pretty printer - 1");
+            System.out.println("standard printer - 2");
+            System.out.println("default printer - 3");
+            System.out.println("exit - 4");
+            int choice = sc.nextInt();
+            sc.nextLine();
+            if (choice == 1) {
+                arrayPrinter = new StandardArrayPrinter(arrayForPrint);
+                arrayPrinter.printArray();
+
+            } else if (choice == 2) {
+                arrayPrinter = new DefaultArrayPrinter(arrayForPrint);
+                arrayPrinter.printArray();
+
+            } else if (choice == 3) {
+                arrayPrinter = new PrettyArrayPrinter(arrayForPrint);
+                arrayPrinter.printArray();
+
+            } else if (choice == 4) break;
+            else {
+                System.out.println("your command invalid");
+                continue;
+            }
+
+        }
     }
 }
