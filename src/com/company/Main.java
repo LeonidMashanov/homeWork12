@@ -3,7 +3,7 @@ package com.company;
 
 import java.util.Arrays;
 import java.util.Objects;
-
+import java.util.Scanner;
 
 class ArrayPrinter {
     ArrayForPrint arrayForPrint;
@@ -59,8 +59,59 @@ class ArrayForPrint {
         return array.length;
     }
 
+    public void setArray(int value, int index) {
+        array = Arrays.copyOf(array, array.length + 1);
+        array[array.length - 1] = value;
+    }
+
+    public int[] arrays(int[] arr1, int[] arr2, int[] arr3) {
+        for (int i = arr1.length; i < arr1.length + arr2.length; i++) {
+            setArray(arr2[i - arr1.length], i);
+        }
+        for (int i = arr1.length + arr2.length; i < arr1.length + arr2.length + arr3.length; i++) {
+            setArray(arr3[i - (arr1.length + arr2.length)], i);
+        }
+        return array;
+    }
+}
+
+class standardArrayPrinter extends ArrayPrinter {
+
+    public standardArrayPrinter(ArrayForPrint arrayForPrint) {
+        super(arrayForPrint);
+    }
+
+    @Override
+    protected void printElem(int elem) {
+
+        System.out.println("*** " + arrayForPrint.getArrayElement(elem) + " ***");
+
+    }
+}
+
+class DefaultArrayPrinter extends ArrayPrinter {
+
+    public DefaultArrayPrinter(ArrayForPrint arrayForPrint) {
+        super(arrayForPrint);
+    }
+
+    @Override
+    protected void printElem(int elem) {
+        System.out.println("{ " + arrayForPrint.getArrayElement(elem) + " }");
+    }
+}
+
+class prettyArrayPrinter extends ArrayPrinter {
 
 
+    public prettyArrayPrinter(ArrayForPrint arrayForPrint) {
+        super(arrayForPrint);
+    }
+
+    @Override
+    protected void printElem(int elem) {
+        System.out.println("--- " + arrayForPrint.getArrayElement(elem) + " ---");
+    }
 }
 
 
